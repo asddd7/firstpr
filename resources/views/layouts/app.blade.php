@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html>
+<head>
+    <title>Dashboard Produk</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<body class="bg-gray-100">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+<div class="flex h-screen">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <!-- SIDEBAR -->
+    <div class="w-64 bg-gray-900 text-white p-5">
+        <h1 class="text-xl font-bold mb-8">MyDashboard</h1>
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+        <ul class="space-y-4">
+            <li><a href="/dashboard" class="hover:text-blue-400">Dashboard</a></li>
+            <li><a href="/products" class="hover:text-blue-400">Products</a></li>
+            <li>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button class="text-red-400">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <!-- CONTENT -->
+    <div class="flex-1 p-6">
+
+        <!-- TOP BAR -->
+        <div class="flex justify-between mb-6">
+            <h2 class="text-2xl font-bold">Dashboard</h2>
+            <div class="text-gray-600">
+                {{ auth()->user()->name }}
+            </div>
         </div>
-    </body>
+
+        <!-- CONTENT AREA -->
+        @yield('content')
+
+    </div>
+
+</div>
+
+</body>
 </html>

@@ -10,8 +10,8 @@
 @endif
 <form method="POST" action="/products">
 @csrf
-<input type="text" name="nama" placeholder="Nama"><br>
-<input type="number" name="harga" placeholder="Harga"><br>
-<textarea name="deskripsi"></textarea><br>
+<input type="text" name="nama" placeholder="Nama" value="{{ old('nama') }}"><br>
+<input type="number" name="harga" placeholder="Harga" value="{{ old('harga') }}"><br>
+<textarea name="deskripsi" placeholder="Deskripsi">{{ old('deskripsi') }}</textarea><br>
 <button type="submit">Simpan</button>
 </form>

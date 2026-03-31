@@ -60,6 +60,10 @@ class ProductController extends Controller
     // hapus
     public function destroy($id)
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
         Product::destroy($id);
         return redirect('/products');
     }
