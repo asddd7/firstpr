@@ -24,8 +24,15 @@ class ProductController extends Controller
     // simpan data
     public function store(Request $request)
     {
+        $request->validate([
+            'nama' => 'required|min:3|max:100',
+            'harga' => 'required|numeric|min:0',
+            'deskripsi' => 'nullable|max:255',
+        ]);
+
         Product::create($request->all());
-        return redirect('/products');
+
+        return redirect('/products')->with('success', 'Produk berhasil ditambahkan');
     }
 
     // form edit
@@ -38,11 +45,18 @@ class ProductController extends Controller
     // update
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama' => 'required|min:3|max:100',
+            'harga' => 'required|numeric|min:0',
+            'deskripsi' => 'nullable|max:255',
+        ]);
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return redirect('/products');
-    }
 
+        return redirect('/products')->with('success', 'Produk berhasil diupdate');
+    }
+    
     // hapus
     public function destroy($id)
     {
