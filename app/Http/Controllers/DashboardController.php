@@ -30,11 +30,11 @@ class DashboardController extends Controller
     }
     public function admin()
     {
-        return view('dashboard.admin', [
-            'totalProduk' => Product::count()
+        return view('admin.dashboard', [
+            'totalProduk' => Product::count(),
+            'produkBaru' => Product::latest()->take(5)->get()
         ]);
     }
-
     public function user()
     {
         return view('dashboard.user', [

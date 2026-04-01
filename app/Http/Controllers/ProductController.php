@@ -18,21 +18,22 @@ class ProductController extends Controller
     // form tambah
     public function create()
     {
+        if (!auth()->user()->can('create products')) {
+            abort(403);
+        }
+
         return view('products.create');
     }
 
     // simpan data
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|min:3|max:100',
-            'harga' => 'required|numeric|min:0',
-            'deskripsi' => 'nullable|max:255',
-        ]);
+        if (!auth()->user()->can('create products')) {
+            abort(403);
+        }
 
         Product::create($request->all());
-
-        return redirect('/products')->with('success', 'Produk berhasil ditambahkan');
+        return redirect('/products');
     }
 
     // form edit
@@ -60,11 +61,11 @@ class ProductController extends Controller
     // hapus
     public function destroy($id)
     {
-        if (auth()->user()->role !== 'admin') {
+        if (!auth()->user()->can('delete products')) {
             abort(403);
         }
 
         Product::destroy($id);
-        return redirect('/products');
+        return back();
     }
 }

@@ -11,34 +11,17 @@
 
     <!-- SIDEBAR -->
     <div class="w-64 bg-gray-900 text-white p-5">
-
         <h1 class="text-xl font-bold mb-8">ADMIN PANEL</h1>
 
         <ul class="space-y-4">
             <li><a href="/admin/dashboard">Dashboard</a></li>
             <li><a href="/admin/products">Products</a></li>
         </ul>
-
     </div>
 
-    <!-- MAIN -->
-    <div class="flex-1 flex flex-col">
-
-        <!-- TOPBAR -->
-        <div class="bg-white shadow p-4 flex justify-between">
-            <span>Welcome, {{ auth()->user()->name }}</span>
-
-            <form method="POST" action="/logout">
-                @csrf
-                <button class="text-red-500">Logout</button>
-            </form>
-        </div>
-
-        <!-- CONTENT -->
-        <div class="p-6">
-            @yield('content')
-        </div>
-
+    <!-- CONTENT -->
+    <div class="flex-1 p-6">
+        @yield('content')
     </div>
 
 </div>
